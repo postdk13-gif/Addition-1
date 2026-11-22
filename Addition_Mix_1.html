@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Additionsverfahren im Mix – Mathematik Klasse 9, Set 1 mit 13 Aufgaben zum Üben mit Selbstkontrolle</title>
+<style>
+  :root{
+    --paper:#fdfdfb; --grid:#e3ebf5; --ink:#1d2433; --blue:#1f4fa3; --blue-soft:#e8eefa;
+    --red:#c22f3a; --red-soft:#fbe9ea; --green:#2c7a4b; --green-soft:#e5f3ea; --muted:#5d6678; --line:#c9d3e2;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0; color:var(--ink); font:17px/1.55 "Segoe UI",system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;
+    background-color:var(--paper);
+    background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+    background-size:22px 22px;
+  }
+  .wrap{max-width:780px;margin:0 auto;padding:28px 18px 80px}
+  header h1{font-family:Georgia,"Times New Roman",serif;font-size:2rem;line-height:1.2;margin:0 0 6px;color:var(--blue)}
+  header p{margin:0 0 6px;color:var(--muted)}
+  .bar{position:sticky;top:0;z-index:5;background:rgba(253,253,251,.96);border-bottom:2px solid var(--blue);
+       margin:18px -18px 22px;padding:10px 18px;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+  .meter{flex:1;min-width:160px;height:12px;background:var(--blue-soft);border-radius:6px;overflow:hidden}
+  .meter span{display:block;height:100%;width:0;background:var(--green);transition:width .4s}
+  .score{font-weight:600;white-space:nowrap}
+  .task{background:#fff;border:1px solid var(--line);border-left:5px solid var(--blue);border-radius:6px;
+        padding:16px 18px 14px;margin:0 0 18px}
+  .task.done{border-left-color:var(--green)}
+  .head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:6px}
+  .num{font-family:Georgia,serif;font-size:1.35rem;font-weight:700;color:var(--blue)}
+  .src{font-size:.82rem;color:var(--muted);text-align:right}
+  .q{margin:2px 0 10px}
+  .field{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:8px 0}
+  input[type=text]{font:inherit;font-size:1.05rem;padding:7px 10px;width:150px;border:none;border-bottom:2px solid var(--blue);
+        background:var(--blue-soft);border-radius:4px 4px 0 0;color:var(--blue)}
+  input.wide{width:min(100%,320px)}
+  input[type=text]:focus{outline:3px solid #9fb8e6;outline-offset:1px}
+  input.ok{border-bottom-color:var(--green);background:var(--green-soft);color:var(--green)}
+  input.no{border-bottom-color:var(--red);background:var(--red-soft);color:var(--red)}
+  .unit{color:var(--muted)}
+  .mc{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 4px}
+  .mc button{font:inherit;padding:7px 14px;border:2px solid var(--line);background:#fff;border-radius:6px;cursor:pointer;color:var(--ink)}
+  .mc button[aria-pressed=true]{border-color:var(--blue);background:var(--blue-soft);color:var(--blue);font-weight:600}
+  .mc button.ok{border-color:var(--green);background:var(--green-soft);color:var(--green)}
+  .mc button.no{border-color:var(--red);background:var(--red-soft);color:var(--red)}
+  .actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+  .btn{font:inherit;font-size:.95rem;padding:7px 14px;border-radius:6px;cursor:pointer;border:2px solid var(--blue);background:var(--blue);color:#fff}
+  .btn.ghost{background:#fff;color:var(--blue)}
+  .btn:disabled{opacity:.4;cursor:not-allowed}
+  .btn:focus-visible,.mc button:focus-visible{outline:3px solid #9fb8e6;outline-offset:2px}
+  .fb{margin-top:8px;font-weight:600;min-height:1.2em}
+  .fb.ok{color:var(--green)} .fb.no{color:var(--red)}
+  .box{margin-top:10px;padding:12px 14px;border-radius:6px;font-size:.97rem}
+  .tip{background:#fff8e1;border:1px dashed #d9b44a}
+  .sol{background:var(--green-soft);border:1px solid #b9dcc6}
+  .sol h4{margin:0 0 6px;font-size:1rem;color:var(--green)}
+  .sol .alt{margin-top:8px;padding-top:8px;border-top:1px dashed #9ccab0}
+  .calc{font-family:Georgia,serif;font-size:1.02rem}
+  table.wt{border-collapse:collapse;margin:6px 0}
+  table.wt td,table.wt th{border:1px solid var(--line);padding:4px 12px;text-align:center}
+  svg{max-width:100%;height:auto}
+  .end{background:#fff;border:2px solid var(--blue);border-radius:8px;padding:18px;margin-top:26px}
+  .end h2{font-family:Georgia,serif;margin:0 0 8px;color:var(--blue)}
+  footer{margin-top:30px;font-size:.82rem;color:var(--muted)}
+  @media (max-width:520px){ body{font-size:16px} header h1{font-size:1.6rem} .head{flex-direction:column;gap:0} .src{text-align:left} }
+  @media (prefers-reduced-motion:reduce){ .meter span{transition:none} }
+  @media print{ .bar,.actions,.fb{display:none} body{background:none} .task{break-inside:avoid} }
+  .ws{background:#fff;border:2px solid var(--green);border-radius:8px;padding:6px 18px 14px;margin:18px 0 6px}
+  .ws summary{cursor:pointer;font-family:Georgia,serif;font-size:1.3rem;font-weight:700;color:var(--green);padding:8px 0;list-style-position:outside}
+  .ws .step{display:flex;gap:10px;margin:12px 0 0}
+  .ws .nr{flex:0 0 30px;height:30px;border-radius:50%;background:var(--green);color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center}
+  .ws .step b.t{display:block;margin-bottom:2px}
+  .ws .calc{margin:4px 0 0;background:var(--green-soft);border-radius:6px;padding:6px 10px}
+  .ws .merke{margin-top:14px;background:#fff8e1;border:1px dashed #d9b44a;border-radius:6px;padding:10px 12px}
+  #calcBtn{position:fixed;right:16px;bottom:16px;z-index:20;width:58px;height:58px;border-radius:50%;border:none;background:var(--blue);color:#fff;font-size:1.6rem;box-shadow:0 3px 10px rgba(0,0,0,.25);cursor:pointer}
+  #calc{position:fixed;right:16px;bottom:84px;z-index:20;width:min(300px,calc(100vw - 32px));background:#fff;border:2px solid var(--blue);border-radius:10px;padding:10px;box-shadow:0 6px 18px rgba(0,0,0,.2)}
+  #calc .disp{font:1.4rem/1.3 Georgia,serif;text-align:right;background:var(--blue-soft);border-radius:6px;padding:8px 10px;min-height:2.4em;word-break:break-all;color:var(--blue)}
+  #calc .keys{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:8px}
+  #calc .keys button{font:inherit;font-size:1.15rem;padding:10px 0;border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--ink);cursor:pointer}
+  #calc .keys button.op{background:var(--blue-soft);color:var(--blue);font-weight:600}
+  #calc .keys button.eq{background:var(--blue);color:#fff;border-color:var(--blue)}
+  @media print{#calcBtn,#calc{display:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Additionsverfahren im Mix</h1>
+    <p>Mathematik Klasse 9, Set 1 mit 13 Aufgaben zum Üben mit Selbstkontrolle.</p>
+    <p>So gehst du vor: Schau dir zuerst den Wissensspeicher an. Löse dann jede Aufgabe selbst im Heft mit dem Additionsverfahren und mach die Probe. Trage deine Werte ein und tippe auf „Prüfen“. Danach kannst du den Lösungsvorschlag mit deinem Weg vergleichen. Komma oder Punkt ist egal, negative Zahlen mit Minuszeichen eingeben. Unten rechts findest du einen Taschenrechner.</p>
+  </header>
+
+
+  <details class="ws" open>
+    <summary>📘 Wissensspeicher: Das Additionsverfahren</summary>
+    <p>Beispiel</p>
+    <p class="calc">I&nbsp;&nbsp;&nbsp;2x + 3y = 13<br>II&nbsp;&nbsp;4x − y = 5</p>
+    <div class="step"><span class="nr">1</span><div><b class="t">Gleichungen ordnen</b>
+      Die Variablen stehen untereinander, x unter x und y unter y, die Zahl steht rechts. Das ist hier schon so.</div></div>
+    <div class="step"><span class="nr">2</span><div><b class="t">Eine Gleichung so multiplizieren, dass bei einer Variablen Gegenzahlen entstehen</b>
+      In I steht 3y. Multipliziere II mit 3, dann steht dort −3y. Multipliziere dabei jedes Glied!
+      <p class="calc">4x − y = 5 &nbsp;&nbsp;| · 3<br>12x − 3y = 15</p></div></div>
+    <div class="step"><span class="nr">3</span><div><b class="t">Beide Gleichungen addieren</b>
+      3y und −3y heben sich auf, es bleibt nur noch x übrig.
+      <p class="calc">2x + 3y + 12x − 3y = 13 + 15<br>14x = 28 &nbsp;&nbsp;| : 14<br>x = 2</p></div></div>
+    <div class="step"><span class="nr">4</span><div><b class="t">Einsetzen und die zweite Variable berechnen</b>
+      Setze x = 2 in Gleichung I ein.
+      <p class="calc">2 · 2 + 3y = 13<br>4 + 3y = 13 &nbsp;&nbsp;| − 4<br>3y = 9 &nbsp;&nbsp;| : 3<br>y = 3</p></div></div>
+    <div class="step"><span class="nr">5</span><div><b class="t">Probe in beiden Gleichungen</b>
+      <p class="calc">I&nbsp;&nbsp;&nbsp;2 · 2 + 3 · 3 = 4 + 9 = 13 ✓<br>II&nbsp;&nbsp;4 · 2 − 3 = 8 − 3 = 5 ✓</p></div></div>
+    <div class="step"><span class="nr">6</span><div><b class="t">Lösung angeben</b>
+      <p class="calc">x = 2, y = 3 &nbsp;&nbsp;also&nbsp;&nbsp; L = {(2 | 3)}</p></div></div>
+    <div class="merke">💡 <b>Merke:</b> Ziel ist immer, dass eine Variable beim Addieren wegfällt. Dafür müssen ihre Vorzahlen Gegenzahlen sein, zum Beispiel 3y und −3y. Haben beide das gleiche Vorzeichen, multiplizierst du eine Gleichung mit einer negativen Zahl. Manchmal musst du auch beide Gleichungen vervielfachen.</div>
+  </details>
+  <div class="bar" role="status" aria-live="polite">
+    <div class="meter" aria-hidden="true"><span id="meter"></span></div>
+    <div class="score" id="score">0 Punkte</div>
+    <button class="btn ghost" id="reset" type="button">Neu starten</button>
+  </div>
+
+  <main id="tasks"></main>
+
+  <section class="end" id="end">
+    <h2>Deine Auswertung</h2>
+    <p id="endText">Bearbeite die Aufgaben und klicke dann hier auf „Auswerten“.</p>
+    <button class="btn" id="evalBtn" type="button">Auswerten</button>
+  </section>
+
+  <footer>Aufgaben aus dem Lehrbuch, für den Unterricht der Klasse 9.4 aufbereitet. Die Seite speichert keine Eingaben und sendet keine Daten.</footer>
+</div>
+
+<script>
+/* Aufgabentypen:
+   "num"  Zahlenfeld, accept = Liste akzeptierter Zahlen (z. B. Rundungsvarianten, andere Einheiten)
+   "mc"   Auswahl, options = Liste, correct = Index der richtigen Option
+   "text" Kurzantwort, accept = Liste akzeptierter Wörter/Begriffe (Groß-/Kleinschreibung egal)
+   Optional pro Aufgabe: fig (SVG/HTML), points (Gesamtpunkte, nur bei komplett richtig), alt (Auch-richtig-Hinweis) */
+const T = [
+ {
+  "src": "Lehrbuch, Aufgabe 5a",
+  "q": "Löse das Gleichungssystem mit dem Additionsverfahren. Gib die Lösung an.<p class=\"calc\">I&nbsp;&nbsp;&nbsp;2x + 5y = 23<br>II&nbsp;&nbsp;−2x + 3y = 1</p>",
+  "parts": [
+   {
+    "type": "num",
+    "label": "x =",
+    "accept": [
+     4
+    ]
+   },
+   {
+    "type": "num",
+    "label": "y =",
+    "accept": [
+     3
+    ]
+   }
+  ],
+  "tip": "Schau auf die x-Glieder. 2x und −2x heben sich beim Addieren auf.",
+  "sol": "<p class=\"calc\"><i style=\"color:#5d6678\">I und II addieren</i><br>2x + 5y + (−2x) + 3y = 23 + 1<br>8y = 24 &nbsp;&nbsp;| : 8<br>y = 3<br><i style=\"color:#5d6678\">x berechnen, y = 3 in I einsetzen</i><br>2x + 5 · 3 = 23<br>2x + 15 = 23 &nbsp;&nbsp;| − 15<br>2x = 8 &nbsp;&nbsp;| : 2<br>x = 4</p><p><b>Lösung: x = 4, y = 3</b>, also L = {(4 | 3)}</p><p>Probe: I: 8 + 15 = 23 ✓ &nbsp; II: −8 + 9 = 1 ✓</p>"
+ },
+ {
+  "src": "Lehrbuch, Aufgabe 5b",
+  "q": "Löse das Gleichungssystem mit dem Additionsverfahren. Gib die Lösung an.<p class=\"calc\">I&nbsp;&nbsp;&nbsp;4x + 3y = 11<br>II&nbsp;&nbsp;−3x − 3y = −9</p>",
+  "parts": [
+   {
+    "type": "num",
+    "label": "x =",
+    "accept": [
+     2
+    ]
+   },
+   {
+    "type": "num",
+    "label": "y =",
+    "accept": [
+     1
+    ]
+   }
+  ],
+  "tip": "Hier fallen die y-Glieder weg, denn 3y und −3y ergeben zusammen 0.",
+  "sol": "<p class=\"calc\"><i style=\"color:#5d6678\">I und II addieren</i><br>4x + 3y + (−3x) + (−3y) = 11 + (−9)<br>x = 2<br><i style=\"color:#5d6678\">y berechnen, x = 2 in I einsetzen</i><br>4 · 2 + 3y = 11<br>8 + 3y = 11 &nbsp;&nbsp;| − 8<br>3y = 3 &nbsp;&nbsp;| : 3<br>y = 1</p><p><b>Lösung: x = 2, y = 1</b>, also L = {(2 | 1)}</p><p>Probe: I: 8 + 3 = 11 ✓ &nbsp; II: −6 − 3 = −9 ✓</p>"
+ },
+ {
+  "src": "Lehrbuch, Aufgabe 5c",
+  "q": "Löse das Gleichungssystem mit dem Additionsverfahren. Gib die Lösung an.<p class=\"calc\">I&nbsp;&nbsp;&nbsp;−5x + 6y = 16<br>II&nbsp;&nbsp;5x − y = 14</p>",
+  "parts": [
+   {
+    "type": "num",
+    "label": "x =",
+    "accept": [
+     4
+    ]
+   },
+   {
+    "type": "num",
+    "label": "y =",
+    "accept": [
+     6
+    ]
+   }
+  ],
+  "tip": "−5x und 5x sind Gegenzahlen. Addiere die beiden Gleichungen direkt.",
+  "sol": "<p class=\"calc\"><i style=\"color:#5d6678\">I und II addieren</i><br>−5x + 6y + 5x − y = 16 + 14<br>5y = 30 &nbsp;&nbsp;| : 5<br>y = 6<br><i style=\"color:#5d6678\">x berechnen, y = 6 in II einsetzen</i><br>5x − 6 = 14 &nbsp;&nbsp;| + 6<br>5x = 20 &nbsp;&nbsp;| : 5<br>x = 4</p><p><b>Lösung: x = 4, y = 6</b>, also L = {(4 | 6)}</p><p>Probe: I: −20 + 36 = 16 ✓ &nbsp; II: 20 − 6 = 14 ✓</p>"
+ },
+ {
+  "src": "Lehrbuch, Aufgabe 5d",
+  "q": "Löse das Gleichungssystem mit dem Additionsverfahren. Gib die Lösung an.<p class=\"calc\">I&nbsp;&nbsp;&nbsp;−5x + 8y = −21<br>II&nbsp;&nbsp;−9x + 8y = −25</p>",
+  "parts": [
+   {
+    "type": "num",
+    "label": "x =",
+    "accept": [
+     1
+    ]
+   },
+   {
+    "type": "num",
+    "label": "y =",
+    "accept": [
+     -2
+    ]
+   }
+  ],
+  "tip": "Beide Gleichungen haben 8y. Multipliziere eine Gleichung mit (−1), dann fällt y beim Addieren weg.",
+  "sol": "<p class=\"calc\"><i style=\"color:#5d6678\">II mit (−1) multiplizieren</i><br>−9x + 8y = −25 &nbsp;&nbsp;| · (−1)<br>9x − 8y = 25<br><i style=\"color:#5d6678\">I und neue II addieren</i><br>−5x + 8y + 9x − 8y = −21 + 25<br>4x = 4 &nbsp;&nbsp;| : 4<br>x = 1<br><i style=\"color:#5d6678\">y berechnen, x = 1 in I einsetzen</i><br>−5 · 1 + 8y = −21<br>−5 + 8y = −21 &nbsp;&nbsp;| + 5<br>8y = −16 &nbsp;&nbsp;| : 8<br>y = −2</p><p><b>Lösung: x = 1, y = −2</b>, also L = {(1 | −2)}</p><p>Probe: I: −5 − 16 = −21 ✓ &nbsp; II: −9 − 16 = −25 ✓</p>"
+ },
+ {
+  "src": "Lehrbuch, Aufgabe 5f",
+  "q": "Löse das Gleichungssystem mit dem Additionsverfahren. Gib die Lösung an.<p class=\"calc\">I&nbsp;&nbsp;&nbsp;2,5x + 1,5y = 34<br>II&nbsp;&nbsp;3,5x + 1,5y = 44</p>",
+  "parts": [
+   {
+    "type": "num",
+    "label": "x =",
+    "accept": [
+     10
+    ]
+   },
+   {
+    "type": "num",
+    "label": "y =",
+    "accept": [
+     6
+    ]
+   }
+  ],
+  "tip": "Beide Gleichungen haben 1,5y. Multipliziere Gleichung I mit (−1) und addiere dann.",
+  "sol": "<p class=\"calc\"><i style=\"color:#5d6678\">I mit (−1) multiplizieren</i><br>2,5x + 1,5y = 34 &nbsp;&nbsp;| · (−1)<br>−2,5x − 1,5y = −34<br><i style=\"color:#5d6678\">neue I und II addieren</i><br>−2,5x − 1,5y + 3,5x + 1,5y = −34 + 44<br>x = 10<br><i style=\"color:#5d6678\">y berechnen, x = 10 in I einsetzen</i><br>2,5 · 10 + 1,5y = 34<br>25 + 1,5y = 34 &nbsp;&nbsp;| − 25<br>1,5y = 9 &nbsp;&nbsp;| : 1,5<br>y = 6</p><p><b>Lösung: x = 10, y = 6</b>, also L = {(10 | 6)}</p><p>Probe: I: 25 + 9 = 34 ✓ &nbsp; II: 35 + 9 = 44 ✓</p>"
+ },
+ {
+  "src": "Lehrbuch, Aufgabe 6a",
+  "q": "Löse das Gleichungssystem. Forme zunächst geeignet um und wende dann das Additionsverfahren an.<p class=\"calc\">I&nbsp;&nbsp;&nbsp;2r + 3s = 20<br>II&nbsp;&nbsp;5r − s = 33</p>",
+  "parts": [
+   {
+    "type": "num",
+    "label": "r =",
+    "accept": [
+     7
+    ]
+   },
+   {
+    "type": "num",
+    "label": "s =",
+    "accept": [
+     2
+    ]
+   }
+  ],
+  "tip": "Die Variablen heißen r und s. Multipliziere Gleichung II mit 3, dann wird aus −s ein −3s.",
+  "sol": "<p class=\"calc\"><i style=\"color:#5d6678\">II mit 3 multiplizieren</i><br>5r − s = 33 &nbsp;&nbsp;| · 3<br>15r − 3s = 99<br><i style=\"color:#5d6678\">I und neue II addieren</i><br>2r + 3s + 15r − 3s = 20 + 99<br>17r = 119 &nbsp;&nbsp;| : 17<br>r = 7<br><i style=\"color:#5d6678\">s berechnen, r = 7 in I einsetzen</i><br>2 · 7 + 3s = 20<br>14 + 3s = 20 &nbsp;&nbsp;| − 14<br>3s = 6 &nbsp;&nbsp;| : 3<br>s = 2</p><p><b>Lösung: r = 7, s = 2</b>, also L = {(7 | 2)}</p><p>Probe: I: 14 + 6 = 20 ✓ &nbsp; II: 35 − 2 = 33 ✓</p>"
+ },
+ {
+  "src": "Lehrbuch, Aufgabe 6b",
+  "q": "Löse das Gleichungssystem. Forme zunächst geeignet um und wende dann das Additionsverfahren an.<p class=\"calc\">I&nbsp;&nbsp;&nbsp;4x + 2y = 46<br>II&nbsp;&nbsp;5x + 4y = 74</p>",
+  "parts": [
+   {
+    "type": "num",
+    "label": "x =",
+    "accept": [
+     6
+    ]
+   },
+   {
+    "type": "num",
+    "label": "y =",
+    "accept": [
+     11
+    ]
+   }
+  ],
+  "tip": "Aus 2y soll −4y werden. Mit welcher Zahl musst du Gleichung I multiplizieren?",
+  "sol": "<p class=\"calc\"><i style=\"color:#5d6678\">I mit (−2) multiplizieren</i><br>4x + 2y = 46 &nbsp;&nbsp;| · (−2)<br>−8x − 4y = −92<br><i style=\"color:#5d6678\">neue I und II addieren</i><br>−8x − 4y + 5x + 4y = −92 + 74<br>−3x = −18 &nbsp;&nbsp;| : (−3)<br>x = 6<br><i style=\"color:#5d6678\">y berechnen, x = 6 in I einsetzen</i><br>4 · 6 + 2y = 46<br>24 + 2y = 46 &nbsp;&nbsp;| − 24<br>2y = 22 &nbsp;&nbsp;| : 2<br>y = 11</p><p><b>Lösung: x = 6, y = 11</b>, also L = {(6 | 11)}</p><p>Probe: I: 24 + 22 = 46 ✓ &nbsp; II: 30 + 44 = 74 ✓</p>"
+ },
+ {
+  "src": "Lehrbuch, Aufgabe 6d",
+  "q": "Löse das Gleichungssystem. Forme zunächst geeignet um und wende dann das Additionsverfahren an.<p class=\"calc\">I&nbsp;&nbsp;&nbsp;9x + 5y = 28<br>II&nbsp;&nbsp;4x + 7y = 22</p>",
+  "parts": [
+   {
+    "type": "num",
+    "label": "x =",
+    "accept": [
+     2
+    ]
+   },
+   {
+    "type": "num",
+    "label": "y =",
+    "accept": [
+     2
+    ]
+   }
+  ],
+  "tip": "Hier musst du beide Gleichungen vervielfachen. Bringe zum Beispiel 5y und 7y auf 35y und −35y.",
+  "sol": "<p class=\"calc\"><i style=\"color:#5d6678\">I mit 7 multiplizieren</i><br>9x + 5y = 28 &nbsp;&nbsp;| · 7<br>63x + 35y = 196<br><i style=\"color:#5d6678\">II mit (−5) multiplizieren</i><br>4x + 7y = 22 &nbsp;&nbsp;| · (−5)<br>−20x − 35y = −110<br><i style=\"color:#5d6678\">beide neuen Gleichungen addieren</i><br>63x + 35y − 20x − 35y = 196 − 110<br>43x = 86 &nbsp;&nbsp;| : 43<br>x = 2<br><i style=\"color:#5d6678\">y berechnen, x = 2 in I einsetzen</i><br>9 · 2 + 5y = 28<br>18 + 5y = 28 &nbsp;&nbsp;| − 18<br>5y = 10 &nbsp;&nbsp;| : 5<br>y = 2</p><p><b>Lösung: x = 2, y = 2</b>, also L = {(2 | 2)}</p><p>Probe: I: 18 + 10 = 28 ✓ &nbsp; II: 8 + 14 = 22 ✓</p>"
+ },
+ {
+  "src": "Lehrbuch, Aufgabe 6e",
+  "q": "Löse das Gleichungssystem. Forme zunächst geeignet um und wende dann das Additionsverfahren an.<p class=\"calc\">I&nbsp;&nbsp;&nbsp;7x + 4y = 29<br>II&nbsp;&nbsp;8x − 3y = 18</p>",
+  "parts": [
+   {
+    "type": "num",
+    "label": "x =",
+    "accept": [
+     3
+    ]
+   },
+   {
+    "type": "num",
+    "label": "y =",
+    "accept": [
+     2
+    ]
+   }
+  ],
+  "tip": "4y und −3y haben schon verschiedene Vorzeichen. Bringe beide auf 12y und −12y.",
+  "sol": "<p class=\"calc\"><i style=\"color:#5d6678\">I mit 3 multiplizieren</i><br>7x + 4y = 29 &nbsp;&nbsp;| · 3<br>21x + 12y = 87<br><i style=\"color:#5d6678\">II mit 4 multiplizieren</i><br>8x − 3y = 18 &nbsp;&nbsp;| · 4<br>32x − 12y = 72<br><i style=\"color:#5d6678\">beide neuen Gleichungen addieren</i><br>21x + 12y + 32x − 12y = 87 + 72<br>53x = 159 &nbsp;&nbsp;| : 53<br>x = 3<br><i style=\"color:#5d6678\">y berechnen, x = 3 in I einsetzen</i><br>7 · 3 + 4y = 29<br>21 + 4y = 29 &nbsp;&nbsp;| − 21<br>4y = 8 &nbsp;&nbsp;| : 4<br>y = 2</p><p><b>Lösung: x = 3, y = 2</b>, also L = {(3 | 2)}</p><p>Probe: I: 21 + 8 = 29 ✓ &nbsp; II: 24 − 6 = 18 ✓</p>"
+ },
+ {
+  "src": "Lehrbuch, Aufgabe 6f",
+  "q": "Löse das Gleichungssystem. Forme zunächst geeignet um und wende dann das Additionsverfahren an.<p class=\"calc\">I&nbsp;&nbsp;&nbsp;10s + 7t = 26<br>II&nbsp;&nbsp;4s + 3t = 26</p>",
+  "parts": [
+   {
+    "type": "num",
+    "label": "s =",
+    "accept": [
+     -52
+    ]
+   },
+   {
+    "type": "num",
+    "label": "t =",
+    "accept": [
+     78
+    ]
+   }
+  ],
+  "tip": "Die Variablen heißen s und t. Bringe 7t und 3t auf 21t und −21t. Keine Sorge, hier kommen große Zahlen heraus.",
+  "sol": "<p class=\"calc\"><i style=\"color:#5d6678\">I mit 3 multiplizieren</i><br>10s + 7t = 26 &nbsp;&nbsp;| · 3<br>30s + 21t = 78<br><i style=\"color:#5d6678\">II mit (−7) multiplizieren</i><br>4s + 3t = 26 &nbsp;&nbsp;| · (−7)<br>−28s − 21t = −182<br><i style=\"color:#5d6678\">beide neuen Gleichungen addieren</i><br>30s + 21t − 28s − 21t = 78 − 182<br>2s = −104 &nbsp;&nbsp;| : 2<br>s = −52<br><i style=\"color:#5d6678\">t berechnen, s = −52 in II einsetzen</i><br>4 · (−52) + 3t = 26<br>−208 + 3t = 26 &nbsp;&nbsp;| + 208<br>3t = 234 &nbsp;&nbsp;| : 3<br>t = 78</p><p><b>Lösung: s = −52, t = 78</b>, also L = {(−52 | 78)}</p><p>Probe: I: −520 + 546 = 26 ✓ &nbsp; II: −208 + 234 = 26 ✓</p>"
+ },
+ {
+  "src": "Lehrbuch, Aufgabe 7a",
+  "q": "Kontrolliere Leas Hausaufgabe. Kreuze an, was stimmt, und gib danach die richtige Lösung an.<p class=\"calc\">I&nbsp;&nbsp;&nbsp;8e + 3f = 18<br>II&nbsp;&nbsp;4e + 2f = 4</p><p>Leas Rechnung:</p><p class=\"calc\">II · (−2), dann I und II addieren<br>f = 10<br>4e + 2 · 10 = 4<br>4e = −16<br>e = −4<br>Lösung: (−4 | 10)</p>",
+  "parts": [
+   {
+    "type": "mc",
+    "options": [
+     "Beim Addieren ist ein Vorzeichenfehler passiert.",
+     "Beim Multiplizieren wurde nicht jedes Glied mal (−2) genommen.",
+     "e und f sind in der Lösung vertauscht.",
+     "Alles ist richtig gerechnet."
+    ],
+    "correct": 0
+   },
+   {
+    "type": "num",
+    "label": "e =",
+    "accept": [
+     6
+    ]
+   },
+   {
+    "type": "num",
+    "label": "f =",
+    "accept": [
+     -10
+    ]
+   }
+  ],
+  "tip": "Rechne selbst II · (−2) und addiere. Was bleibt bei den f-Gliedern übrig, 3f − 4f = …?",
+  "sol": "<p>Lea hat beim Addieren das Vorzeichen falsch übernommen. Aus 3f − 4f wird −f, also −f = 10 und damit f = −10.</p><p class=\"calc\"><i style=\"color:#5d6678\">II mit (−2) multiplizieren</i><br>4e + 2f = 4 &nbsp;&nbsp;| · (−2)<br>−8e − 4f = −8<br><i style=\"color:#5d6678\">I und neue II addieren</i><br>8e + 3f − 8e − 4f = 18 − 8<br>−f = 10 &nbsp;&nbsp;| · (−1)<br>f = −10<br><i style=\"color:#5d6678\">e berechnen, f = −10 in II einsetzen</i><br>4e + 2 · (−10) = 4<br>4e − 20 = 4 &nbsp;&nbsp;| + 20<br>4e = 24 &nbsp;&nbsp;| : 4<br>e = 6</p><p><b>Richtige Lösung: e = 6, f = −10, also L = {(6 | −10)}. Probe: 48 − 30 = 18 ✓ und 24 − 20 = 4 ✓</b></p>"
+ },
+ {
+  "src": "Lehrbuch, Aufgabe 7b",
+  "q": "Kontrolliere Leas Hausaufgabe. Kreuze an, was stimmt, und gib danach die richtige Lösung an.<p class=\"calc\">I&nbsp;&nbsp;&nbsp;8r − 11s = 26<br>II&nbsp;&nbsp;8r − 5s = 38</p><p>Leas Rechnung:</p><p class=\"calc\">II · (−1), dann I und II addieren<br>6s = 12<br>s = 2<br>8r − 11 = 26<br>8r = 48<br>r = 6<br>Lösung: (6 | 2)</p>",
+  "parts": [
+   {
+    "type": "mc",
+    "options": [
+     "Beim Einsetzen wurde mit dem falschen Wert für s gerechnet.",
+     "Das Ergebnis stimmt, Lea hat beim Einsetzen nur „· 2“ nicht aufgeschrieben und beim Addieren die Minuszeichen weggelassen.",
+     "r und s sind in der Lösung vertauscht.",
+     "Beim Multiplizieren wurde nicht jedes Glied mal (−1) genommen."
+    ],
+    "correct": 1
+   },
+   {
+    "type": "num",
+    "label": "r =",
+    "accept": [
+     6
+    ]
+   },
+   {
+    "type": "num",
+    "label": "s =",
+    "accept": [
+     2
+    ]
+   }
+  ],
+  "tip": "Mach die Probe mit Leas Ergebnis in beiden Gleichungen. Schau danach genau, was sie aufgeschrieben hat.",
+  "sol": "<p>Leas Ergebnis ist richtig. In ihrer Rechnung fehlen aber zwei Dinge. Nach dem Addieren entsteht eigentlich −6s = −12, und beim Einsetzen muss 8r − 11 · 2 = 26 dastehen, nicht 8r − 11 = 26.</p><p class=\"calc\"><i style=\"color:#5d6678\">II mit (−1) multiplizieren</i><br>8r − 5s = 38 &nbsp;&nbsp;| · (−1)<br>−8r + 5s = −38<br><i style=\"color:#5d6678\">I und neue II addieren</i><br>8r − 11s − 8r + 5s = 26 − 38<br>−6s = −12 &nbsp;&nbsp;| : (−6)<br>s = 2<br><i style=\"color:#5d6678\">r berechnen, s = 2 in I einsetzen</i><br>8r − 11 · 2 = 26<br>8r − 22 = 26 &nbsp;&nbsp;| + 22<br>8r = 48 &nbsp;&nbsp;| : 8<br>r = 6</p><p><b>Lösung: r = 6, s = 2, also L = {(6 | 2)}. Probe: 48 − 22 = 26 ✓ und 48 − 10 = 38 ✓</b></p>"
+ },
+ {
+  "src": "Lehrbuch, Aufgabe 7c",
+  "q": "Kontrolliere Leas Hausaufgabe. Kreuze an, was stimmt, und gib danach die richtige Lösung an.<p class=\"calc\">I&nbsp;&nbsp;&nbsp;10x + 7y + 4 = 0<br>II&nbsp;&nbsp;6x + 5y + 2 = 0</p><p>Leas Rechnung:</p><p class=\"calc\">I · (−3) und II · 5, dann addieren<br>4y − 2 = 0<br>y = 0,5<br>6x + 5 · 0,5 + 2 = 0<br>6x = −4,5<br>x = −0,75<br>Lösung: (0,5 | 0,75)</p>",
+  "parts": [
+   {
+    "type": "mc",
+    "options": [
+     "Beim Addieren wurde falsch gerechnet.",
+     "Beim Multiplizieren wurde nicht jedes Glied mitgenommen.",
+     "Die Rechnung stimmt, aber in der Lösung sind x und y vertauscht und bei x fehlt das Minuszeichen.",
+     "Alles ist richtig gerechnet."
+    ],
+    "correct": 2
+   },
+   {
+    "type": "num",
+    "label": "x =",
+    "accept": [
+     -0.75
+    ]
+   },
+   {
+    "type": "num",
+    "label": "y =",
+    "accept": [
+     0.5
+    ]
+   }
+  ],
+  "tip": "Vergleiche Leas Werte für x und y mit dem Zahlenpaar, das sie als Lösung aufgeschrieben hat.",
+  "sol": "<p>Lea hat x = −0,75 und y = 0,5 richtig berechnet. Beim Aufschreiben der Lösung hat sie aber x und y vertauscht und das Minuszeichen vergessen.</p><p class=\"calc\"><i style=\"color:#5d6678\">I mit (−3) multiplizieren</i><br>10x + 7y + 4 = 0 &nbsp;&nbsp;| · (−3)<br>−30x − 21y − 12 = 0<br><i style=\"color:#5d6678\">II mit 5 multiplizieren</i><br>6x + 5y + 2 = 0 &nbsp;&nbsp;| · 5<br>30x + 25y + 10 = 0<br><i style=\"color:#5d6678\">beide neuen Gleichungen addieren</i><br>−30x − 21y − 12 + 30x + 25y + 10 = 0<br>4y − 2 = 0 &nbsp;&nbsp;| + 2<br>4y = 2 &nbsp;&nbsp;| : 4<br>y = 0,5<br><i style=\"color:#5d6678\">x berechnen, y = 0,5 in II einsetzen</i><br>6x + 5 · 0,5 + 2 = 0<br>6x + 2,5 + 2 = 0<br>6x + 4,5 = 0 &nbsp;&nbsp;| − 4,5<br>6x = −4,5 &nbsp;&nbsp;| : 6<br>x = −0,75</p><p><b>Richtige Lösung: x = −0,75, y = 0,5, also L = {(−0,75 | 0,5)}</b></p>"
+ }
+];
+
+const LOB = ["Hervorragend, das sitzt!", "Gut gemacht, nur noch wenige Lücken.", "Ein solider Anfang. Wiederhole die Aufgaben, die noch nicht geklappt haben.", "Hier lohnt sich noch Übung. Nutze die Tipps und Lösungsvorschläge."];
+
+const TOTAL = T.reduce((s,t)=>s+(t.points||t.parts.length),0);
+const state = T.map(t=>({checked:false, ok:t.parts.map(()=>false), mc:t.parts.map(()=>null)}));
+
+function parseNum(raw){
+  if(!raw) return NaN;
+  let s = raw.toLowerCase().replace(/\s+/g,"").replace(/[−–]/g,"-")
+    .replace(/^[a-zα-ω]+[0-9]*=/,"")
+    .replace(/[^\d.,\/-].*$/,"")
+    .replace(",",".");
+  if(/^-?\d+(\.\d+)?\/-?\d+(\.\d+)?$/.test(s)){ const [a,b]=s.split("/").map(Number); return a/b; }
+  return /^-?\d*\.?\d+$/.test(s) ? Number(s) : NaN;
+}
+function normText(raw){
+  return (raw||"").toLowerCase().trim().replace(/\s+/g," ").replace(/[.!?;:,"„“']/g,"");
+}
+
+function render(){
+  const box = document.getElementById("tasks");
+  box.innerHTML = "";
+  T.forEach((t,i)=>{
+    const el = document.createElement("article");
+    el.className = "task"; el.id = "t"+i;
+    let html = `<div class="head"><span class="num">Aufgabe ${i+1}</span><span class="src">${t.src||""}</span></div>
+      <div class="q">${t.q}</div>${t.fig?`<div>${t.fig}</div>`:""}`;
+    t.parts.forEach((p,j)=>{
+      if(p.type==="num" || p.type==="text"){
+        html += `<div class="field"><label for="in${i}_${j}">${p.label||"Antwort:"}</label>
+          <input type="text" ${p.type==="num"?'inputmode="text"':'class="wide"'} autocomplete="off" autocapitalize="off" spellcheck="false" id="in${i}_${j}">
+          ${p.unit?`<span class="unit">${p.unit}</span>`:""}</div>`;
+      } else {
+        html += `<div class="mc" role="group" aria-label="Antwortmöglichkeiten">${p.options.map((o,k)=>
+          `<button type="button" aria-pressed="false" data-i="${i}" data-j="${j}" data-k="${k}">${o}</button>`).join("")}</div>`;
+      }
+    });
+    html += `<div class="actions">
+        <button class="btn" type="button" data-act="check" data-i="${i}">Prüfen</button>
+        ${t.tip?`<button class="btn ghost" type="button" data-act="tip" data-i="${i}">Tipp</button>`:""}
+        <button class="btn ghost" type="button" data-act="sol" data-i="${i}" disabled title="Erst nach dem Prüfen verfügbar">Lösungsvorschlag</button>
+      </div>
+      <div class="fb" id="fb${i}" aria-live="polite"></div>
+      ${t.tip?`<div class="box tip" id="tip${i}" hidden>💡 ${t.tip}</div>`:""}
+      <div class="box sol" id="sol${i}" hidden><h4>Lösungsvorschlag</h4>${t.sol}${t.alt?`<div class="alt">${t.alt}</div>`:""}</div>`;
+    el.innerHTML = html;
+    box.appendChild(el);
+  });
+}
+
+function check(i){
+  const t=T[i], st=state[i];
+  let allOk=true, anyEmpty=false;
+  t.parts.forEach((p,j)=>{
+    let ok=false;
+    if(p.type==="num" || p.type==="text"){
+      const inp=document.getElementById(`in${i}_${j}`);
+      if(inp.value.trim()==="") anyEmpty=true;
+      if(p.type==="num"){
+        const v=parseNum(inp.value), tol=p.tol||1e-6;
+        ok = !isNaN(v) && p.accept.some(a=>Math.abs(a-v)<=tol);
+      } else {
+        const v=normText(inp.value);
+        ok = v!=="" && p.accept.some(a=>normText(a)===v);
+      }
+      inp.classList.remove("ok","no"); if(inp.value.trim()!=="") inp.classList.add(ok?"ok":"no");
+    } else {
+      const sel=st.mc[j];
+      if(sel===null) anyEmpty=true;
+      ok = sel===p.correct;
+      document.querySelectorAll(`#t${i} .mc button[data-j="${j}"]`).forEach(b=>{
+        b.classList.remove("ok","no");
+        if(+b.dataset.k===sel) b.classList.add(ok?"ok":"no");
+      });
+    }
+    st.ok[j]=ok; if(!ok) allOk=false;
+  });
+  const fb=document.getElementById("fb"+i);
+  if(anyEmpty && !allOk){ fb.className="fb no"; fb.textContent="Trage zuerst eine Antwort ein oder wähle eine aus."; return; }
+  st.checked=true;
+  fb.className="fb "+(allOk?"ok":"no");
+  if(allOk) fb.textContent="✓ Richtig! Vergleiche trotzdem deinen Weg mit dem Lösungsvorschlag.";
+  else if(st.ok.some(Boolean)) fb.textContent="Teilweise richtig. Prüfe die rot markierte Antwort noch einmal.";
+  else fb.textContent="✗ Noch nicht richtig. Schau dir den Tipp an und versuche es noch einmal.";
+  const sb=document.querySelector(`#t${i} [data-act=sol]`); sb.disabled=false; sb.removeAttribute("title");
+  document.getElementById("t"+i).classList.toggle("done",allOk);
+  updateScore();
+}
+
+function points(i){
+  const t=T[i], ok=state[i].ok;
+  if(t.points) return ok.every(Boolean)?t.points:0;
+  return ok.filter(Boolean).length;
+}
+function updateScore(){
+  const s=T.reduce((a,_,i)=>a+points(i),0);
+  document.getElementById("score").textContent=`${s} von ${TOTAL} Punkten`;
+  document.getElementById("meter").style.width=(s/TOTAL*100)+"%";
+  return s;
+}
+
+document.addEventListener("click",e=>{
+  const b=e.target.closest("button"); if(!b) return;
+  if(b.closest(".mc")){
+    const i=+b.dataset.i, j=+b.dataset.j, k=+b.dataset.k;
+    state[i].mc[j]=k;
+    b.parentElement.querySelectorAll("button").forEach(x=>{x.setAttribute("aria-pressed",x===b?"true":"false"); x.classList.remove("ok","no");});
+    return;
+  }
+  const i=+b.dataset.i;
+  if(b.dataset.act==="check") check(i);
+  if(b.dataset.act==="tip"){ const t=document.getElementById("tip"+i); t.hidden=!t.hidden; }
+  if(b.dataset.act==="sol"){ const s=document.getElementById("sol"+i); s.hidden=!s.hidden; b.textContent=s.hidden?"Lösungsvorschlag":"Lösung ausblenden"; }
+});
+document.addEventListener("keydown",e=>{
+  if(e.key==="Enter" && e.target.matches("input[type=text]")){ check(+e.target.id.slice(2).split("_")[0]); }
+});
+
+document.getElementById("evalBtn").addEventListener("click",()=>{
+  const s=updateScore();
+  const open=[], wrong=[];
+  T.forEach((t,i)=>{ if(!state[i].checked) open.push(i+1); else if(points(i)<(t.points||t.parts.length)) wrong.push(i+1); });
+  const pct=Math.round(s/TOTAL*100);
+  let msg=`Du hast <b>${s} von ${TOTAL} Punkten</b> erreicht (${pct} %). `;
+  msg += pct>=90?LOB[0]:pct>=70?LOB[1]:pct>=50?LOB[2]:LOB[3];
+  if(wrong.length) msg+=`<br>Noch einmal ansehen: Aufgabe ${wrong.join(", ")}.`;
+  if(open.length) msg+=`<br>Noch nicht bearbeitet: Aufgabe ${open.join(", ")}.`;
+  document.getElementById("endText").innerHTML=msg;
+});
+
+document.getElementById("reset").addEventListener("click",()=>{
+  if(!confirm("Alle Eingaben löschen und neu beginnen?")) return;
+  state.forEach(s=>{s.checked=false; s.ok=s.ok.map(()=>false); s.mc=s.mc.map(()=>null);});
+  render(); updateScore();
+  document.getElementById("endText").textContent="Bearbeite die Aufgaben und klicke dann hier auf „Auswerten“.";
+  window.scrollTo(0,0);
+});
+
+render(); updateScore();
+</script>
+<button id="calcBtn" type="button" aria-label="Taschenrechner öffnen">🧮</button>
+<div id="calc" hidden role="dialog" aria-label="Taschenrechner">
+  <div class="disp" id="calcDisp" aria-live="polite">0</div>
+  <div class="keys">
+    <button type="button" data-c="C" class="op">C</button><button type="button" data-c="(" class="op">(</button><button type="button" data-c=")" class="op">)</button><button type="button" data-c="⌫" class="op">⌫</button>
+    <button type="button" data-c="7">7</button><button type="button" data-c="8">8</button><button type="button" data-c="9">9</button><button type="button" data-c="÷" class="op">÷</button>
+    <button type="button" data-c="4">4</button><button type="button" data-c="5">5</button><button type="button" data-c="6">6</button><button type="button" data-c="×" class="op">×</button>
+    <button type="button" data-c="1">1</button><button type="button" data-c="2">2</button><button type="button" data-c="3">3</button><button type="button" data-c="−" class="op">−</button>
+    <button type="button" data-c="0">0</button><button type="button" data-c=",">,</button><button type="button" data-c="=" class="eq">=</button><button type="button" data-c="+" class="op">+</button>
+  </div>
+</div>
+<script>
+(function(){
+  const btn=document.getElementById("calcBtn"), box=document.getElementById("calc"), d=document.getElementById("calcDisp");
+  let ex="";
+  const show=()=>{d.textContent=ex===""?"0":ex;};
+  btn.addEventListener("click",e=>{e.stopPropagation(); box.hidden=!box.hidden;});
+  box.addEventListener("click",e=>{
+    e.stopPropagation();
+    const b=e.target.closest("button[data-c]"); if(!b) return;
+    const c=b.dataset.c;
+    if(c==="C") ex="";
+    else if(c==="⌫") ex=ex.slice(0,-1);
+    else if(c==="="){
+      const js=ex.replace(/×/g,"*").replace(/÷/g,"/").replace(/−/g,"-").replace(/,/g,".");
+      if(!/^[0-9+\-*/().\s]+$/.test(js)){ex="Fehler";show();ex="";return;}
+      try{ let r=Function("return ("+js+")")(); if(!isFinite(r)) throw 0;
+        r=Math.round(r*1e10)/1e10; ex=String(r).replace(".",",").replace("-","−");
+      }catch(_){ex="Fehler";show();ex="";return;}
+    } else ex+=c;
+    show();
+  });
+})();
+</script>
+</body>
+</html>
